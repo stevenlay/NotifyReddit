@@ -1,1 +1,1 @@
-# NotifyReddit
+# Reddit-Upvote-Notifier-Bot
