@@ -19,10 +19,10 @@ else:
 messageToSend = ""
 #1: Pick the subreddits to look at with: ("subreddit1 + subreddit2... + subredditn")
 subreddits = reddit.subreddit("learnprogramming+aww")
-messageToSend += subreddits.display_name + "\n"
+messageToSend += subreddits.display_name + "\n \n"
 print(messageToSend)
 for submission in subreddits.hot(limit=10):
-    titleAndLink = (submission.title + "Link: %s \n" % (submission.shortlink))
+    titleAndLink = (submission.title + "\t%s \n \n" % (submission.shortlink))
     print(titleAndLink)
     messageToSend += titleAndLink
 
@@ -51,6 +51,6 @@ with open("upvoted_posts.txt", "w") as file:
     file.write(messageToSend)
 
 #send the links to reddit user
-reddit.redditor('ENTER USERNAME HERE').message("Highlights", messageToSend)
+reddit.redditor('ENTER USENAME HERE').message("Highlights", messageToSend)
             
         
