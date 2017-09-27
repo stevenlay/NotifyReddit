@@ -40,19 +40,20 @@ for submission in subreddits.hot(limit=None):
 #iterate through all the subscribed subreddits
 #for subreddit  in subscribed:
  #   print(subreddit.title)
-  #  messageToSend += subreddit.title
+  #  messageToSend += subreddit.name + "\n \n"
     
-    #get the top 50 submissions in the subreddit
-   # for submission in subreddit.hot(limit=1):
-        #if submission isn't already sent to the user, add it
-    #    if submission.id not in upvoted_posts:
-     #       submission_ref= (submission.title + " Link: %s" %(submission.shortlink))  
-      #      dashes = ("----------------------------------------- \n")
-       #     print(submission_ref)
-        #    print(dashes)
-         #   upvoted_posts.append(submission_ref)
-          #  upvoted_posts.append(dashes)
+    #get the top submission in the subreddit
+    #for submission in subreddit.hot(limit=1):
+        #if counter >= limit:
+            #break
+        #if submission.id not in upvoted_posts:
+            #titleAndLink= (submission.title + "\t%s \n \n" %(submission.shortlink))  
+            #print(titleAndLink)
+            #messageToSend += titleAndLink
+            #upvoted_posts.append(submission.id)
+            #counter += 1
 
+#add new ids to the txt document for future filtering
 with open("upvoted_posts.txt", "w") as file:
     for id in upvoted_posts:
         file.write(id + "\n")
