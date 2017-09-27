@@ -5,7 +5,8 @@ import os
 
 #reddit instance
 reddit= praw.Reddit("notifier")
-
+limit = 10
+counter = 0
 #if no file exists, initialize it
 if not os.path.isfile("upvoted_posts.txt"):
     upvoted_posts = []
@@ -21,11 +22,16 @@ messageToSend = ""
 subreddits = reddit.subreddit("learnprogramming+aww")
 messageToSend += subreddits.display_name + "\n \n"
 print(messageToSend)
-for submission in subreddits.hot(limit=10):
-    titleAndLink = (submission.title + "\t%s \n \n" % (submission.shortlink))
-    print(titleAndLink)
-    messageToSend += titleAndLink
-
+for submission in subreddits.hot(limit=None):
+    if counter >= limit:
+        break
+    if submission.id not in upvoted_posts:
+        titleAndLink = (submission.title + "\t%s \n \n" % (submission.shortlink))
+        print(titleAndLink)
+        messageToSend += titleAndLink
+        upvoted_posts.append(submission.id)
+        counter += 1
+            
 
 #---------------------------------------------------------------------#
 #2: Look at all the subscribed subreddit with:
@@ -48,9 +54,10 @@ for submission in subreddits.hot(limit=10):
           #  upvoted_posts.append(dashes)
 
 with open("upvoted_posts.txt", "w") as file:
-    file.write(messageToSend)
+    for id in upvoted_posts:
+        file.write(id + "\n")
 
 #send the links to reddit user
-reddit.redditor('ENTER USENAME HERE').message("Highlights", messageToSend)
+reddit.redditor('ENTER USERNAME HERE').message("Highlights", messageToSend)
             
         
