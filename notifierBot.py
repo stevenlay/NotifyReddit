@@ -7,6 +7,7 @@ import os
 reddit= praw.Reddit("notifier")
 limit = 10
 counter = 0
+
 #if no file exists, initialize it
 if not os.path.isfile("upvoted_posts.txt"):
     upvoted_posts = []
@@ -17,18 +18,26 @@ else:
         upvoted_posts = upvoted_posts.split("\n")
         upvoted_posts = list(filter(None, upvoted_posts))
 
+#send to user as a pm later on
 messageToSend = ""
+
 #1: Pick the subreddits to look at with: ("subreddit1 + subreddit2... + subredditn")
 subreddits = reddit.subreddit("learnprogramming+aww")
+
+#Subreddit Titles formatted for Reddit PMs
 messageToSend += subreddits.display_name + "\n \n"
 print(messageToSend)
+
 for submission in subreddits.hot(limit=None):
+    #Get the first unique submissions until limit is reached
     if counter >= limit:
         break
     if submission.id not in upvoted_posts:
         titleAndLink = (submission.title + "\t%s \n \n" % (submission.shortlink))
         print(titleAndLink)
         messageToSend += titleAndLink
+
+        #add id to be filtered out next time
         upvoted_posts.append(submission.id)
         counter += 1
             
@@ -43,7 +52,7 @@ for submission in subreddits.hot(limit=None):
   #  messageToSend += subreddit.name + "\n \n"
     
     #get the top submission in the subreddit
-    #for submission in subreddit.hot(limit=1):
+    #for submission in subreddit.hot(limit=None):
         #if counter >= limit:
             #break
         #if submission.id not in upvoted_posts:
