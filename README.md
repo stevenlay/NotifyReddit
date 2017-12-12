@@ -1,5 +1,6 @@
 # Reddit-Most-Upvoted-Posts
 
+#Notifies the user of the top posts in subscribed subreddits
 #Removed the .ini file as it contains sensitive information such as passwords, username, and client id / secret
 #To use: provide own praw.ini and fill in the following information as found: http://praw.readthedocs.io/en/latest/getting_started/configuration/prawini.html
 
